@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Amirhossein Zamani | Vision 2028</title>
-    <meta name="description" content="رزومه استراتژیک دکتر امیرحسین زمانی - چشم‌انداز ۱۴۰۷">
+    <title>Dr. Amirhossein Zamani | Vision 1407</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
@@ -15,330 +14,395 @@
             theme: {
                 extend: {
                     colors: {
-                        navy: { 900: '#0a192f', 800: '#112240', 700: '#233554' },
+                        navy: { 900: '#020c1b', 800: '#0a192f', 700: '#112240' },
                         gold: { 400: '#FFD700', 500: '#C5A059', 600: '#B8860B' }
                     },
-                    fontFamily: {
-                        sans: ['Vazirmatn', 'sans-serif'],
-                    },
-                    animation: {
-                        'blob': 'blob 7s infinite',
-                        'fade-up': 'fadeUp 1s ease-out forwards',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
+                    fontFamily: { sans: ['Vazirmatn', 'sans-serif'] }
                 }
             }
         }
     </script>
 
     <style>
-        /* استایل‌های سفارشی برای اسکرول و شیشه */
-        body { 
-            background-color: #0a192f; 
-            color: #e6f1ff; 
-            overflow-x: hidden;
-        }
+        /* تنظیمات پایه */
+        body { background-color: #020c1b; color: #e6f1ff; overflow-x: hidden; }
         
+        /* مخفی کردن اسکرول بار مزاحم */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020c1b; }
+        ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 4px; }
+
+        /* --- استراتژی اسکرول (مهم برای موبایل) --- */
         .slides-wrapper {
             height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
         }
-        
         .section-slide {
-            height: 100vh;
+            min-height: 100vh; /* تغییر به min-height برای موبایل */
             width: 100%;
             scroll-snap-align: start;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            padding: 2rem 0;
         }
 
-        /* افکت شیشه‌ای پیشرفته */
+        /* در موبایل اسکرول اجباری حذف شود */
+        @media (max-width: 768px) {
+            .slides-wrapper { scroll-snap-type: none; height: auto; overflow-y: visible; }
+            .section-slide { height: auto; min-height: 100vh; padding-top: 80px; padding-bottom: 60px; }
+            .nav-dots { display: none; } /* مخفی کردن دات‌ها در موبایل */
+        }
+
+        /* شیشه مدرن */
         .glass-card {
-            background: rgba(17, 34, 64, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            background: rgba(17, 34, 64, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+            transition: all 0.3s ease;
         }
-
         .glass-card:hover {
-            border-color: rgba(197, 160, 89, 0.5);
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6);
+            border-color: rgba(197, 160, 89, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(2, 12, 27, 1);
         }
 
-        /* متن طلایی گرادینت */
-        .text-gradient-gold {
-            background: linear-gradient(to right, #C5A059, #FFD700, #C5A059);
+        /* انیمیشن‌ها */
+        .reveal-item { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); }
+        .active .reveal-item { opacity: 1; transform: translateY(0); }
+        
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+
+        /* اسکرول افقی برای پروژه‌ها */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 0.5rem;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        .project-card {
+            flex: 0 0 320px; /* عرض ثابت کارت‌ها */
+            scroll-snap-align: center;
+        }
+        @media (min-width: 768px) {
+            .project-card { flex: 0 0 400px; }
+        }
+
+        /* گرادینت متن */
+        .text-gradient {
+            background: linear-gradient(to right, #C5A059, #F6E05E, #C5A059);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
-            animation: shine 3s linear infinite;
+            animation: shine 5s linear infinite;
         }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        /* دات‌های نویگیشن */
+        .nav-dot { width: 12px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
+        .nav-dot.active { background: #C5A059; transform: scale(1.4); }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        /* نویگیشن */
-        .nav-dot {
-            width: 10px; 
-            height: 10px; 
-            background: rgba(255,255,255,0.2); 
-            border-radius: 50%; 
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-        .nav-dot.active {
-            background: #C5A059;
-            height: 25px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px #C5A059;
-        }
-
-        /* مخفی کردن اسکرول بار */
-        .slides-wrapper::-webkit-scrollbar { width: 0; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-4">
-        <div class="nav-dot active" onclick="scrollToSection(0)" title="Home"></div>
-        <div class="nav-dot" onclick="scrollToSection(1)" title="Stats"></div>
-        <div class="nav-dot" onclick="scrollToSection(2)" title="Empire"></div>
-        <div class="nav-dot" onclick="scrollToSection(3)" title="Journey"></div>
-        <div class="nav-dot" onclick="scrollToSection(4)" title="Contact"></div>
+    <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-6 nav-dots">
+        <div class="nav-dot active" onclick="scrollToSection(0)" title="خانه"></div>
+        <div class="nav-dot" onclick="scrollToSection(1)" title="داشبورد"></div>
+        <div class="nav-dot" onclick="scrollToSection(2)" title="پروژه‌ها"></div>
+        <div class="nav-dot" onclick="scrollToSection(3)" title="مسیر"></div>
+        <div class="nav-dot" onclick="scrollToSection(4)" title="تماس"></div>
     </div>
 
-    <div class="fixed inset-0 z-0 pointer-events-none">
-        <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
-        <div class="absolute top-0 -right-4 w-72 h-72 bg-gold-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px]"></div>
     </div>
 
     <div class="slides-wrapper" id="mainContainer">
 
-        <section class="section-slide">
-            <div class="container mx-auto px-6 text-center z-10 opacity-0 transition-all duration-1000 transform translate-y-10" id="slide0-content">
+        <section class="section-slide" id="slide0">
+            <div class="container mx-auto px-6 text-center z-10 max-w-4xl flex flex-col items-center">
                 
-                <div class="relative w-56 h-56 mx-auto mb-8 group cursor-pointer">
-                    <div class="absolute inset-0 bg-gradient-to-r from-gold-500 to-amber-700 rounded-full blur opacity-40 group-hover:opacity-80 transition duration-700"></div>
+                <div class="reveal-item mb-8 relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-gold-500 to-blue-600 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
                     <img src="./profile.jpg" 
                          onerror="this.src='https://cvbuilder.me/images/cv-templates/template-5/avatar.jpg'"
-                         alt="Dr. Amirhossein Zamani" 
-                         class="relative w-full h-full object-cover rounded-full border-4 border-navy-800 shadow-2xl transition duration-500 transform group-hover:scale-105">
+                         class="relative w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-navy-800 object-cover shadow-2xl z-10">
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-navy-900/90 text-gold-400 text-xs font-mono px-3 py-1 rounded-full border border-gold-500/30 z-20 whitespace-nowrap">
+                        VISION 1407
+                    </div>
                 </div>
 
-                <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight">
-                    دکتر امیرحسین <span class="text-gradient-gold">زمانی</span>
+                <h1 class="reveal-item delay-100 text-4xl md:text-6xl font-black mb-6 tracking-tight">
+                    دکتر امیرحسین <span class="text-gradient">زمانی</span>
                 </h1>
-                
-                <div class="flex flex-col md:flex-row justify-center items-center gap-3 text-slate-300 text-lg md:text-xl font-light mb-8">
-                    <span>بنیان‌گذار <strong class="text-white">CAREMA</strong></span>
-                    <span class="hidden md:block text-gold-500">•</span>
-                    <span>استراتژیست ارشد صنعت <strong class="text-white">HoReCa</strong></span>
+
+                <div class="reveal-item delay-200 grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-10">
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-right">
+                        <div class="bg-gold-500/10 p-3 rounded-lg text-gold-500 text-xl"><i class="fas fa-brain"></i></div>
+                        <div>
+                            <div class="text-xs text-slate-400">بنیان‌گذار</div>
+                            <div class="text-white font-bold">پلتفرم هوش مصنوعی CAREMA</div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-right">
+                        <div class="bg-blue-500/10 p-3 rounded-lg text-blue-400 text-xl"><i class="fas fa-globe"></i></div>
+                        <div>
+                            <div class="text-xs text-slate-400">هم‌بنیان‌گذار</div>
+                            <div class="text-white font-bold">اکوسیستم ملی Horeca Core</div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-right">
+                        <div class="bg-green-500/10 p-3 rounded-lg text-green-400 text-xl"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <div class="text-xs text-slate-400">استراتژیست</div>
+                            <div class="text-white font-bold">کسب‌وکارهای صنعت F&B</div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-right">
+                        <div class="bg-purple-500/10 p-3 rounded-lg text-purple-400 text-xl"><i class="fas fa-search-location"></i></div>
+                        <div>
+                            <div class="text-xs text-slate-400">محقق و مشاور</div>
+                            <div class="text-white font-bold">صنعت گردشگری و هورکا</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="inline-block glass-card px-8 py-3 rounded-full text-gold-400 border-gold-500/30 mb-12">
-                    <i class="fas fa-quote-right text-xs align-top ml-2"></i>
-                    من به سینرژی باور دارم، تکامل و زیبایی
-                    <i class="fas fa-quote-left text-xs align-bottom mr-2"></i>
-                </div>
+                <p class="reveal-item delay-300 text-lg text-slate-400 italic font-light">
+                    «من به سینرژی باور دارم، تکامل و زیبایی»
+                </p>
 
-                <div class="animate-bounce text-slate-500 cursor-pointer" onclick="scrollToSection(1)">
+                <div class="reveal-item delay-400 mt-10 animate-bounce text-slate-500 cursor-pointer" onclick="scrollToSection(1)">
                     <i class="fas fa-chevron-down text-2xl"></i>
                 </div>
             </div>
         </section>
 
-        <section class="section-slide">
-            <div class="container mx-auto px-6 z-10 max-w-5xl opacity-0 transition-all duration-1000" id="slide1-content">
-                <div class="text-center mb-16">
+        <section class="section-slide" id="slide1">
+            <div class="container mx-auto px-6 z-10 max-w-6xl">
+                <div class="text-center mb-12 reveal-item">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">داشبورد عملکرد ۱۴۰۷</h2>
-                    <div class="w-24 h-1 bg-gold-500 mx-auto rounded-full"></div>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-card p-8 rounded-2xl text-center relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-20 h-20 bg-gold-500/10 rounded-bl-full -mr-10 -mt-10 transition group-hover:bg-gold-500/20"></div>
-                        <div class="text-gold-500 text-4xl mb-4"><i class="fas fa-sack-dollar"></i></div>
-                        <div class="text-5xl font-black text-white mb-2 font-mono counter" data-target="5">0</div>
-                        <div class="text-xl text-gold-400 font-bold">هـمـت (Toman)</div>
-                        <p class="text-slate-400 text-sm mt-2">گردش مالی سالانه اکوسیستم</p>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 reveal-item delay-100">
+                    
+                    <div class="glass-card p-6 rounded-2xl md:col-span-2 md:row-span-2 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-bl-full"></div>
+                        <div class="text-gold-500 text-5xl mb-4"><i class="fas fa-coins"></i></div>
+                        <div class="text-6xl font-black text-white mb-2 font-mono counter" data-target="5">0</div>
+                        <div class="text-2xl text-gold-400 font-bold">هـمـت (Toman)</div>
+                        <p class="text-slate-400 mt-2">گردش مالی سالانه اکوسیستم</p>
                     </div>
 
-                    <div class="glass-card p-8 rounded-2xl text-center relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-bl-full -mr-10 -mt-10 transition group-hover:bg-blue-500/20"></div>
-                        <div class="text-blue-400 text-4xl mb-4"><i class="fas fa-users"></i></div>
-                        <div class="text-5xl font-black text-white mb-2 font-mono counter" data-target="100000">0</div>
-                        <div class="text-xl text-blue-400 font-bold">کاربر فعال</div>
-                        <p class="text-slate-400 text-sm mt-2">جامعه مخاطبین پلتفرم‌ها</p>
+                    <div class="glass-card p-6 rounded-2xl md:col-span-2 flex items-center justify-between">
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-white mb-1 counter" data-target="100000">0</div>
+                            <div class="text-blue-400 font-bold">کاربر فعال</div>
+                        </div>
+                        <div class="bg-blue-500/20 p-4 rounded-full text-blue-400 text-3xl"><i class="fas fa-users"></i></div>
                     </div>
 
-                    <div class="glass-card p-8 rounded-2xl text-center relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-bl-full -mr-10 -mt-10 transition group-hover:bg-green-500/20"></div>
-                        <div class="text-green-400 text-4xl mb-4"><i class="fas fa-building"></i></div>
-                        <div class="text-5xl font-black text-white mb-2 font-mono counter" data-target="200">0</div>
-                        <div class="text-xl text-green-400 font-bold">سازمان</div>
-                        <p class="text-slate-400 text-sm mt-2">تحت مشاوره استراتژیک</p>
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
+                        <div class="text-green-400 text-3xl mb-2"><i class="fas fa-building"></i></div>
+                        <div class="text-3xl font-bold text-white counter" data-target="200">0</div>
+                        <div class="text-sm text-slate-400">سازمان تحت مشاوره</div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center">
+                        <div class="text-purple-400 text-3xl mb-2"><i class="fas fa-microphone-alt"></i></div>
+                        <div class="text-3xl font-bold text-white counter" data-target="150">0</div>
+                        <div class="text-sm text-slate-400">رویداد آموزشی</div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-2xl md:col-span-4 flex items-center justify-center gap-8 text-slate-500 overflow-hidden">
+                        <span class="text-sm font-bold">همکاری با +۵۰۰ برند معتبر:</span>
+                        <i class="fab fa-google text-2xl hover:text-white transition"></i>
+                        <i class="fab fa-aws text-2xl hover:text-white transition"></i>
+                        <i class="fas fa-coffee text-2xl hover:text-white transition"></i>
+                        <i class="fas fa-utensils text-2xl hover:text-white transition"></i>
+                        <i class="fas fa-handshake text-2xl hover:text-white transition"></i>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section-slide">
-            <div class="container mx-auto px-6 max-w-6xl z-10 opacity-0 transition-all duration-1000" id="slide2-content">
-                <h2 class="text-3xl font-bold text-center mb-12 text-white">رهبری اکوسیستم‌های ملی</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-card p-8 rounded-3xl transition-all duration-500 hover:shadow-[0_0_30px_rgba(197,160,89,0.3)] group">
-                        <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+        <section class="section-slide" id="slide2">
+            <div class="container mx-auto px-4 z-10 w-full">
+                <div class="text-center mb-10 reveal-item">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">امپراتوری پروژه‌ها</h2>
+                    <p class="text-slate-400">برای مشاهده پروژه‌ها به چپ و راست اسکرول کنید</p>
+                </div>
+
+                <div class="horizontal-scroll reveal-item delay-100 pb-8">
+                    
+                    <div class="glass-card p-8 rounded-3xl project-card relative group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gold-500"></div>
+                        <div class="flex justify-between items-center mb-6">
                             <h3 class="text-3xl font-black text-white">CAREMA</h3>
-                            <span class="bg-gold-500 text-navy-900 px-3 py-1 rounded-lg text-xs font-bold tracking-wider">AI PLATFORM</span>
+                            <i class="fas fa-robot text-gold-500 text-2xl"></i>
                         </div>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
-                            <i class="fas fa-robot text-gold-500 ml-2"></i>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed h-20">
                             اولین دستیار هوشمند مدیریت کافه. کاهش ۲۰٪ ضایعات (Zero Waste) با الگوریتم‌های یادگیری ماشین.
                         </p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center text-sm text-slate-400">
-                                <i class="fas fa-check-circle text-gold-500 ml-3"></i> بنیان‌گذار و مدیرعامل (CEO)
-                            </li>
-                            <li class="flex items-center text-sm text-slate-400">
-                                <i class="fas fa-check-circle text-gold-500 ml-3"></i> یکپارچه با ۵۰۰ برند زنجیره‌ای
-                            </li>
-                        </ul>
+                        <div class="border-t border-white/10 pt-4">
+                            <span class="block text-xs text-slate-500 mb-1">نقش:</span>
+                            <span class="text-gold-400 font-bold">بنیان‌گذار و CEO</span>
+                        </div>
                     </div>
 
-                    <div class="glass-card p-8 rounded-3xl transition-all duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] group">
-                        <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                    <div class="glass-card p-8 rounded-3xl project-card relative group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+                        <div class="flex justify-between items-center mb-6">
                             <h3 class="text-3xl font-black text-white">Horeca Core</h3>
-                            <span class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-bold tracking-wider">ECOSYSTEM</span>
+                            <i class="fas fa-globe text-blue-500 text-2xl"></i>
                         </div>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
-                            <i class="fas fa-globe-americas text-blue-500 ml-2"></i>
-                            بزرگترین هاب صنعت غذا و نوشیدنی. مارکت‌پلیس ۱ همتی و شبکه تامین و لجستیک.
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed h-20">
+                            بزرگترین هاب صنعت غذا و نوشیدنی. مارکت‌پلیس ۱ همتی و شبکه تامین و لجستیک سراسری.
                         </p>
-                        <ul class="space-y-3">
-                            <li class="flex items-center text-sm text-slate-400">
-                                <i class="fas fa-check-circle text-blue-500 ml-3"></i> هم‌بنیان‌گذار و مدیر عملیات (COO)
-                            </li>
-                            <li class="flex items-center text-sm text-slate-400">
-                                <i class="fas fa-check-circle text-blue-500 ml-3"></i> توسعه وندینگ ماشین‌های IoT
-                            </li>
-                        </ul>
+                        <div class="border-t border-white/10 pt-4">
+                            <span class="block text-xs text-slate-500 mb-1">نقش:</span>
+                            <span class="text-blue-400 font-bold">هم‌بنیان‌گذار و COO</span>
+                        </div>
                     </div>
+
+                    <div class="glass-card p-8 rounded-3xl project-card relative group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-3xl font-black text-white">Legathorn</h3>
+                            <i class="fas fa-music text-purple-500 text-2xl"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed h-20">
+                            مدیریت تحقیق و توسعه (R&D) در صنعت موسیقی و سرگرمی. پیاده‌سازی استراتژی‌های هوش مصنوعی در هنر.
+                        </p>
+                        <div class="border-t border-white/10 pt-4">
+                            <span class="block text-xs text-slate-500 mb-1">نقش:</span>
+                            <span class="text-purple-400 font-bold">مدیر R&D و استراتژی AI</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-3xl project-card relative group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-green-500"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-3xl font-black text-white">Academy</h3>
+                            <i class="fas fa-graduation-cap text-green-500 text-2xl"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed h-20">
+                            همکاری با مراجع آموزشی و دانشگاه‌ها برای تدوین سیلابس‌های نوین مدیریت هورکا.
+                        </p>
+                        <div class="border-t border-white/10 pt-4">
+                            <span class="block text-xs text-slate-500 mb-1">دستاورد:</span>
+                            <span class="text-green-400 font-bold">تربیت +۵۰۰۰ متخصص</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <section class="section-slide">
-            <div class="container mx-auto px-6 max-w-5xl z-10 opacity-0 transition-all duration-1000" id="slide3-content">
-                <h2 class="text-3xl font-bold text-center mb-10 text-white">مسیر تکامل: از هنر تا تکنولوژی</h2>
-                
-                <div class="relative border-r-2 border-slate-700 mr-4 md:mr-0 space-y-12">
-                    
-                    <div class="relative md:w-1/2 md:mr-auto md:pr-12 md:pl-0 pl-8">
-                        <span class="absolute -right-[9px] top-0 w-4 h-4 rounded-full bg-gold-500 ring-4 ring-navy-900"></span>
-                        <h3 class="text-gold-500 font-bold text-xl">۱۴۰۷ - ۱۴۰۴ (اکنون)</h3>
-                        <h4 class="text-white text-lg font-bold mb-2">DBA & رهبری بازار</h4>
-                        <p class="text-slate-400 text-sm glass-card p-4 rounded-xl">
-                            اخذ دکترای حرفه‌ای مدیریت از دانشگاه تهران. رهبری هلدینگ CAREMA و تسلط بر بازار نرم‌افزارهای هورکا.
-                        </p>
-                    </div>
+        <section class="section-slide" id="slide3">
+            <div class="container mx-auto px-6 z-10 max-w-4xl">
+                <div class="text-center mb-12 reveal-item">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">از هنر تا تکنولوژی</h2>
+                    <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
+                </div>
 
-                    <div class="relative md:w-1/2 md:ml-auto md:pl-12 pl-8 md:text-left">
-                         <div class="md:absolute md:-right-[9px] top-0 md:w-4 md:h-4 md:rounded-full md:bg-blue-500 md:ring-4 md:ring-navy-900 hidden md:block"></div>
-                         <span class="absolute -right-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 ring-4 ring-navy-900 md:hidden"></span>
-                        
-                        <div class="md:text-right"> <h3 class="text-blue-400 font-bold text-xl">۱۴۰۴ - ۱۴۰۰</h3>
-                             <h4 class="text-white text-lg font-bold mb-2">MBA & تولد پلتفرم‌ها</h4>
-                             <p class="text-slate-400 text-sm glass-card p-4 rounded-xl">
-                                دریافت مدرک MBA. ورود تخصصی به هوش مصنوعی (Google Cert). مشاوره به ۲۰۰+ برند برای تحول دیجیتال.
-                             </p>
+                <div class="relative border-r-2 border-navy-700 mr-4 md:mr-0 space-y-12 reveal-item delay-100">
+                    
+                    <div class="relative pl-8 md:pr-12 md:pl-0 md:text-right md:w-full">
+                        <span class="absolute -right-[9px] top-2 w-4 h-4 rounded-full bg-gold-500 ring-4 ring-navy-900"></span>
+                        <div class="glass-card p-6 rounded-xl inline-block w-full md:w-[48%] md:mr-auto md:float-left text-right">
+                            <div class="text-gold-500 font-bold text-lg mb-1">۱۴۰۷ - ۱۴۰۴ (اکنون)</div>
+                            <h3 class="text-white text-xl font-bold mb-2">رهبری بازار & DBA</h3>
+                            <p class="text-slate-400 text-sm">اخذ دکترای حرفه‌ای مدیریت از دانشگاه تهران. تسلط بر بازار نرم‌افزارهای هورکا با CAREMA.</p>
                         </div>
                     </div>
 
-                    <div class="relative md:w-1/2 md:mr-auto md:pr-12 md:pl-0 pl-8">
-                        <span class="absolute -right-[9px] top-0 w-4 h-4 rounded-full bg-slate-500 ring-4 ring-navy-900"></span>
-                        <h3 class="text-slate-400 font-bold text-xl">پیش از ۱۴۰۰</h3>
-                        <h4 class="text-white text-lg font-bold mb-2">ریشه‌ها: سینما و کافه</h4>
-                        <p class="text-slate-400 text-sm glass-card p-4 rounded-xl">
-                            کارشناسی تدوین سینما (دانشگاه هنر اصفهان). داوری مسابقات ملی بارتندینگ. مدیر تولید Barset.
-                        </p>
+                    <div class="relative pl-8 md:pr-12 md:pl-0 md:text-right md:w-full clearfix">
+                        <span class="absolute -right-[9px] top-2 w-4 h-4 rounded-full bg-blue-500 ring-4 ring-navy-900"></span>
+                        <div class="glass-card p-6 rounded-xl inline-block w-full md:w-[48%] md:ml-auto md:float-right text-right">
+                            <div class="text-blue-400 font-bold text-lg mb-1">۱۴۰۴ - ۱۴۰۰</div>
+                            <h3 class="text-white text-xl font-bold mb-2">تولد پلتفرم‌ها & MBA</h3>
+                            <p class="text-slate-400 text-sm">دریافت مدرک MBA. ورود تخصصی به هوش مصنوعی (Google Cert). مشاوره به ۲۰۰+ برند.</p>
+                        </div>
                     </div>
+
+                    <div class="relative pl-8 md:pr-12 md:pl-0 md:text-right md:w-full clearfix">
+                        <span class="absolute -right-[9px] top-2 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-navy-900"></span>
+                        <div class="glass-card p-6 rounded-xl inline-block w-full md:w-[48%] md:mr-auto md:float-left text-right">
+                            <div class="text-slate-500 font-bold text-lg mb-1">پیش از ۱۴۰۰</div>
+                            <h3 class="text-white text-xl font-bold mb-2">ریشه‌ها: سینما و کافه</h3>
+                            <p class="text-slate-400 text-sm">کارشناسی تدوین سینما. داوری مسابقات ملی بارتندینگ. مدیر تولید Barset.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <section class="section-slide">
-            <div class="container mx-auto px-6 max-w-4xl z-10 opacity-0 transition-all duration-1000" id="slide4-content">
+        <section class="section-slide" id="slide4">
+            <div class="container mx-auto px-6 max-w-4xl z-10 text-center">
                 
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-white mb-4">ارتباط مستقیم</h2>
-                    <p class="text-slate-400">همیشه آماده شنیدن ایده‌های بزرگ برای خلق سینرژی هستم.</p>
-                </div>
+                <h2 class="text-3xl font-bold text-white mb-10 reveal-item">ارتباط مستقیم</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16 reveal-item delay-100">
                     
-                    <a href="tel:09135497791" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition">
-                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-xl"><i class="fas fa-phone"></i></div>
-                        <div class="text-left">
-                            <div class="text-xs text-slate-400">Mobile</div>
-                            <div class="text-white font-mono dir-ltr">0913 549 7791</div>
+                    <a href="tel:09135497791" class="glass-card p-5 rounded-xl flex items-center justify-between hover:bg-white/5 transition group">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500 mb-1">موبایل</div>
+                            <div class="text-white font-mono text-lg font-bold" dir="ltr">0913 549 7791</div>
                         </div>
+                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xl group-hover:scale-110 transition"><i class="fas fa-phone"></i></div>
                     </a>
 
-                    <a href="https://instagram.com/atoz.fnb" target="_blank" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition">
-                        <div class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 text-xl"><i class="fab fa-instagram"></i></div>
-                        <div class="text-left">
-                            <div class="text-xs text-slate-400">Instagram</div>
-                            <div class="text-white font-mono">@atoz.fnb</div>
+                    <a href="https://instagram.com/atoz.fnb" target="_blank" class="glass-card p-5 rounded-xl flex items-center justify-between hover:bg-white/5 transition group">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500 mb-1">اینستاگرام</div>
+                            <div class="text-white font-mono text-lg font-bold" dir="ltr">@atoz.fnb</div>
                         </div>
+                        <div class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-500 text-xl group-hover:scale-110 transition"><i class="fab fa-instagram"></i></div>
                     </a>
 
-                    <a href="https://linkedin.com/in/amirzamni" target="_blank" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition">
-                        <div class="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-400 text-xl"><i class="fab fa-linkedin-in"></i></div>
-                        <div class="text-left">
-                            <div class="text-xs text-slate-400">LinkedIn</div>
-                            <div class="text-white font-mono">/amirzamni</div>
+                    <a href="https://linkedin.com/in/amirzamni" target="_blank" class="glass-card p-5 rounded-xl flex items-center justify-between hover:bg-white/5 transition group">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500 mb-1">لینکدین</div>
+                            <div class="text-white font-mono text-lg font-bold" dir="ltr">/amirzamni</div>
                         </div>
+                        <div class="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 text-xl group-hover:scale-110 transition"><i class="fab fa-linkedin-in"></i></div>
                     </a>
 
-                    <a href="mailto:amirzamani@carema.ai" class="glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition">
-                        <div class="w-12 h-12 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-xl"><i class="fas fa-envelope"></i></div>
-                        <div class="text-left">
-                            <div class="text-xs text-slate-400">Corporate Email</div>
-                            <div class="text-white font-mono text-sm">amirzamani@carema.ai</div>
+                    <a href="mailto:amirzamani@carema.ai" class="glass-card p-5 rounded-xl flex items-center justify-between hover:bg-white/5 transition group">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500 mb-1">ایمیل سازمانی</div>
+                            <div class="text-white font-mono text-sm font-bold" dir="ltr">amirzamani@carema.ai</div>
                         </div>
+                        <div class="w-12 h-12 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-500 text-xl group-hover:scale-110 transition"><i class="fas fa-envelope"></i></div>
                     </a>
-                    
-                    <a href="mailto:amirzamani@horeca.core" class="md:col-span-2 glass-card p-4 rounded-xl flex items-center gap-4 hover:bg-white/5 transition justify-center">
-                        <i class="fas fa-envelope-open-text text-slate-400"></i>
-                        <span class="text-white font-mono text-sm">amirzamani@horeca.core</span>
+
+                    <a href="mailto:amirzamani@horeca.core" class="glass-card p-5 rounded-xl md:col-span-2 flex items-center justify-center gap-3 hover:bg-white/5 transition group">
+                        <i class="fas fa-envelope-open-text text-slate-500"></i>
+                        <span class="text-white font-mono font-bold" dir="ltr">amirzamani@horeca.core</span>
                     </a>
                 </div>
 
-                <div class="border-t border-slate-800 pt-6 flex flex-col items-end text-right opacity-40 hover:opacity-100 transition duration-500">
-                    <p class="text-xs text-slate-500 font-light">طراحی شده برای درس تئوری سازمان</p>
-                    <p class="text-xs text-slate-400 font-medium mt-1">استاد دکتر حیدری | پاییز ۲۰۲۵</p>
-                    <div class="text-[10px] text-slate-600 mt-2 font-mono">CODE: GENERATED BY GEMINI PRO 1407 EDITION</div>
+                <div class="border-t border-white/5 pt-8 reveal-item delay-200">
+                    <div class="flex flex-col items-center justify-center opacity-60 hover:opacity-100 transition duration-500">
+                        <p class="text-sm text-slate-300 font-medium">طراحی شده برای درس تئوری سازمان</p>
+                        <p class="text-xs text-slate-400 mt-2">استاد دکتر حیدری | پاییز ۲۰۲۵</p>
+                        <div class="text-[10px] text-navy-700 mt-4 font-mono bg-navy-800 px-2 py-1 rounded">CODE: GENERATED BY GEMINI PRO</div>
+                    </div>
                 </div>
 
             </div>
@@ -347,50 +411,45 @@
     </div>
 
     <script>
-        const container = document.getElementById('mainContainer');
         const sections = document.querySelectorAll('.section-slide');
         const dots = document.querySelectorAll('.nav-dot');
         const counters = document.querySelectorAll('.counter');
         let hasCounted = false;
 
-        // Scroll Logic
+        // اسکرول نرم به سکشن
         function scrollToSection(index) {
             sections[index].scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Intersection Observer
+        // مشاهده‌گر اسکرول
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const index = Array.from(sections).indexOf(entry.target);
                     
-                    // Update Dots
+                    // فعال کردن انیمیشن‌ها
+                    entry.target.classList.add('active');
+                    
+                    // آپدیت دات‌ها
                     dots.forEach(d => d.classList.remove('active'));
-                    dots[index].classList.add('active');
+                    if(dots[index]) dots[index].classList.add('active');
 
-                    // Animate Content Entry
-                    const content = document.getElementById(`slide${index}-content`);
-                    if(content) {
-                        content.classList.remove('opacity-0', 'translate-y-10');
-                        content.classList.add('opacity-100', 'translate-y-0');
-                    }
-
-                    // Start Counters if visible
+                    // شروع شمارنده‌ها در اسلاید ۱
                     if (index === 1 && !hasCounted) {
                         startCounters();
                         hasCounted = true;
                     }
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2 });
 
-        sections.forEach(section => observer.observe(section));
+        sections.forEach(sec => observer.observe(sec));
 
-        // Counter Logic
+        // منطق شمارنده
         function startCounters() {
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
-                const duration = 2500;
+                const duration = 2000;
                 const increment = target / (duration / 16);
                 
                 let current = 0;
